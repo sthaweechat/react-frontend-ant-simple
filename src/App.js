@@ -1,25 +1,102 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import { Row, Col, Form, Input, Button } from 'antd';
 
 function App() {
+  const layout = {
+    labelCol: {
+      // span: 8,
+      xs: 6,
+      sm: 8,
+      md: 10
+    },
+    wrapperCol: {
+      // span: 16,
+      xs: 18,
+      sm: 16,
+      md: 14
+    },
+  };
+
+  let onFinish = (values) => {
+    console.log(values);
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Row justify="center">
+        <Col xs={24} sm={24} md={20} lg={16} xl={14} xxl={12}>
+          <Form onFinish={onFinish} {...layout}>
+            <Form.Item
+              label="ชื่อ"
+              name="name"
+              rules={[
+                { required: true, message: "คุณต้องกรอกช่องนี้" },
+                {
+                  max: 6,
+                  min: 3,
+                  message: "ชื่อต้องอยู่ระหว่าง 3 ถึง 6 ตัวอักษร"
+                }
+              ]}
+            >
+              <Input placeholder="Name" />
+            </Form.Item>
+
+            <Form.Item
+              label="เบอร์โทรศัพท์"
+              name="phonNumber"
+              rules={[
+                {
+                  len: 10,
+                  message: "คุณต้องกรอกเบอร์โทรศัพท์ให้ถูกต้อง"
+                }
+              ]}
+            >
+              <Input placeholder="Phone Number" />
+            </Form.Item>
+
+            <Form.Item
+              label="อีเมล์"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "คุณต้องกรอกช่องนี้"
+                },
+                {
+                  type: 'email',
+                  message: "คุณต้องกรอกอีเมล์ให้ถูกต้อง"
+                }
+              ]}
+            >
+              <Input placeholder="Email" />
+            </Form.Item>
+
+            <Form.Item
+              label="รหัสผ่าน"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "คุณต้องใส่รหัสผ่านด้วย"
+                },
+                {
+                  min: 12,
+                  max: 24,
+                  message: "รหัสผ่านของคุณต้องอยู่ระหว่าง 12 ถึง 24 ตัว"
+                }
+              ]}
+            >
+              <Input placeholder="Password" type="password" />
+            </Form.Item>
+
+            <Button htmlType="submit">Register</Button>
+          </Form>
+        </Col>
+      </Row>
     </div>
-  );
+  )
 }
 
 export default App;
